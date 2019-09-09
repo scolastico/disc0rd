@@ -2,32 +2,22 @@ package disc0rd;
 
 import disc0rd.sql.MysqlConnector;
 import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.SentryClientFactory;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import disc0rd.events.MessageListener;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.StringReader;
 import java.sql.SQLException;
 
 public class disc0rd {
 
-    private static SentryClient _sentry;
     private static JDA _jda;
-
-    public static SentryClient getSentryClient() {
-        return _sentry;
-    }
 
     public static JDA getJDA() {
         return _jda;
     }
 
     public static void main(String... args) {
-        System.out.println("disc0rd - Community Bot");
+        System.out.println("disc0rd - Community Bot - by scolastico");
         System.out.println("     _ _           ___          _ \n" +
                 "  __| (_)___  ___ / _ \\ _ __ __| |\n" +
                 " / _` | / __|/ __| | | | '__/ _` |\n" +
@@ -35,7 +25,7 @@ public class disc0rd {
                 " \\__,_|_|___/\\___|\\___/|_|  \\__,_|\n" +
                 "                                  ");
         try {
-            System.out.println("Version " + VersionController.getVersion() + " | Commit " + VersionController.getCommit() + " | Time " + VersionController.getTime() + " | by scolastico");
+            System.out.println("Version " + VersionController.getVersion() + " | Commit " + VersionController.getCommit() + " | Time " + VersionController.getTime());
         } catch (Exception e) {
             System.out.println("[ERROR] This build is corrupt!");
             return;
@@ -48,12 +38,14 @@ public class disc0rd {
             return;
         }
 
-        Sentry.init("https://eb8a6dbb31f247a1b57ab386ef1a88b7@sentry.io/1645265");
-        _sentry = SentryClientFactory.sentryClient();
+        Sentry.init("https://eb8a6dbb31f247a1b57ab386ef1a88b7@sentry.io/1645265?async.shutdowntimeout=15000&async.gracefulshutdown=true");
+
 
         try {
 
-            _sentry.setRelease( new VersionController().versionInformation());
+            Sentry.getContext().addTag("release", "v" + VersionController.getVersion() + "c" + VersionController.getCommit());
+
+            Sentry.capture("use of software");
 
             try {
 
@@ -62,7 +54,10 @@ public class disc0rd {
             } catch (SQLException error) {
 
                 System.out.println("SQL Error:");
-                System.out.println(error.getMessage());
+                error.printStackTrace();
+                System.out.println("Sending use statistics...");
+                Sentry.getContext().addTag("error lvl", "SQL");
+                Sentry.capture(error);
                 return;
 
             }
@@ -71,10 +66,11 @@ public class disc0rd {
             jda.addEventListener(new MessageListener());
 
         } catch (Exception error) {
-            _sentry.getContext().addTag("error lvl", "FATAL");
-            Sentry.capture(error);
             System.out.println("Error:");
-            System.out.println(error.getMessage());
+            error.printStackTrace();
+            System.out.println("Sending use statistics...");
+            Sentry.getContext().addTag("error lvl", "FATAL");
+            Sentry.capture(error);
             return;
         }
 

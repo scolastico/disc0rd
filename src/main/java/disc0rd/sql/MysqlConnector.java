@@ -21,7 +21,6 @@ public class MysqlConnector {
         if (conn == null) {
             throw new SQLException("Connection dead?! How is this possible?");
         }
-        instance = new MysqlConnector(conn);
         instance.runSQL(
                 "-- CREATE DB " +
                         "CREATE DATABASE IF NOT EXISTS db;" +
@@ -70,6 +69,12 @@ public class MysqlConnector {
                         "PRAGMA foreign_keys = ON;" +
                         "SET FOREIGN_KEY_CHECKS = 1;"
         );
+        conn.close();
+        conn = DriverManager.getConnection(url + "/db");
+        if (conn == null) {
+            throw new SQLException("Connection dead?! How is this possible?");
+        }
+        instance = new MysqlConnector(conn);
         return instance;
     }
 
@@ -88,7 +93,7 @@ public class MysqlConnector {
 
     public void runSQL(String sql) throws SQLException {
         Statement statement = conn.createStatement();
-        statement.executeQuery(sql);
+        statement.executeQuery("");
     };
 
 }
