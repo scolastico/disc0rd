@@ -24,7 +24,10 @@ public class MysqlConnector {
         instance = new MysqlConnector(conn);
         instance.runSQL(
                 "-- CREATE DB " +
+                        "CREATE DATABASE IF NOT EXISTS db;" +
+                        "USE db;" +
                         "SET FOREIGN_KEY_CHECKS = 0;\n" +
+                        "PRAGMA foreign_keys = OFF;" +
                         "\n" +
                         "CREATE TABLE IF NOT EXISTS `server`\n" +
                         "(\n" +
@@ -64,6 +67,7 @@ public class MysqlConnector {
                         ");\n" +
                         "\n" +
                         "\n" +
+                        "PRAGMA foreign_keys = ON;" +
                         "SET FOREIGN_KEY_CHECKS = 1;"
         );
         return instance;
@@ -84,7 +88,7 @@ public class MysqlConnector {
 
     public void runSQL(String sql) throws SQLException {
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery(sql);
+        statement.executeQuery(sql);
     };
 
 }
