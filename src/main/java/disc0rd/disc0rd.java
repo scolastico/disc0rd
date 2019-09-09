@@ -43,7 +43,7 @@ public class disc0rd {
 
         try {
 
-            Sentry.getContext().addTag("release", "v" + VersionController.getVersion() + "c" + VersionController.getCommit());
+            Sentry.getContext().addTag("version", "v" + VersionController.getVersion() + "c" + VersionController.getCommit());
 
             Sentry.capture("use of software");
 
