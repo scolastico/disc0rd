@@ -1,12 +1,9 @@
 package disc0rd;
 
-import disc0rd.sql.MysqlConnector;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import disc0rd.events.MessageListener;
-
-import java.sql.SQLException;
 
 public class disc0rd {
 
@@ -45,18 +42,16 @@ public class disc0rd {
 
             Sentry.getContext().addTag("version", "v" + VersionController.getVersion() + "c" + VersionController.getCommit());
 
-            Sentry.capture("use of software");
-
             try {
 
-                MysqlConnector connector = MysqlConnector.setInstance("jdbc:sqlite:./database.sqlite");
 
-            } catch (SQLException error) {
 
-                System.out.println("SQL Error:");
+            } catch (Exception error) {
+
+                System.out.println("Database Error Error:");
                 error.printStackTrace();
-                System.out.println("Sending use statistics...");
-                Sentry.getContext().addTag("error lvl", "SQL");
+                System.out.println("[info] Sending use statistics...");
+                Sentry.getContext().addTag("error lvl", "DB-ERROR");
                 Sentry.capture(error);
                 return;
 
@@ -66,9 +61,11 @@ public class disc0rd {
             jda.addEventListener(new MessageListener());
 
         } catch (Exception error) {
+
+
             System.out.println("Error:");
             error.printStackTrace();
-            System.out.println("Sending use statistics...");
+            System.out.println("[info] Sending use statistics...");
             Sentry.getContext().addTag("error lvl", "FATAL");
             Sentry.capture(error);
             return;
