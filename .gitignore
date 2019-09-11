@@ -11,3 +11,6 @@
 # Maven
 log/
 target/
+
+# Disc0rd
+disc0rd.properties

@@ -1,5 +1,6 @@
 package disc0rd.database;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class DatabaseManager {
@@ -8,29 +9,54 @@ public class DatabaseManager {
     private ArrayList<Server> _server;
     private ArrayList<Sub> _sub;
 
+    private Connection connection;
+
     private static DatabaseManager _instance = null;
 
     public static DatabaseManager getInstance() {
-        _instance = new DatabaseManager();
+        if(_instance == null) {
+            _instance = new DatabaseManager();
+        }
         return _instance;
     }
 
     private DatabaseManager() {
 
+
+
+    }
+
+    public DatabaseManager saveDatabase() {
+
+
+
+        return this;
     }
 
     public Server getServer(int serverId) {
-        // HERE PAUSE
-        return null;
+        for (Server server:_server) {
+            if (server.getId() == serverId) {
+                return server;
+            }
+        }
+        Server server = new Server(serverId);
+        _server.add(server);
+        return server;
     }
 
     public ArrayList<Server> getAllServers() {
         return _server;
     }
 
-    public Pr0User getPr0User(String userId) {
-
-        return null;
+    public Pr0User getPr0User(String userName) {
+        for (Pr0User pr0User:_pr0Users) {
+            if (pr0User.getUsername().equalsIgnoreCase(userName)) {
+                return pr0User;
+            }
+        }
+        Pr0User pr0User = new Pr0User(userName);
+        _pr0Users.add(pr0User);
+        return pr0User;
     }
 
     public ArrayList<Pr0User> getAllPr0Users() {

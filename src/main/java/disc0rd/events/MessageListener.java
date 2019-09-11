@@ -1,5 +1,6 @@
 package disc0rd.events;
 
+import disc0rd.Disc0rd;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -14,7 +15,7 @@ public class MessageListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
 
-        JDA jda = disc0rd.disc0rd.getJDA();
+        JDA jda = Disc0rd.getJDA();
         String msg = event.getMessage().getContentRaw();
 
         if (event.isFromType(ChannelType.PRIVATE) || event.isFromType(ChannelType.GROUP)) {

@@ -1,6 +1,5 @@
 package disc0rd;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -51,6 +50,10 @@ class VersionController {
             }
         }
         return commit;
+    }
+
+    public static String getVersionsCode() {
+        return "$v=" + getVersion() + "$c=" + getCommit();
     }
 
     public String versionInformation() {
