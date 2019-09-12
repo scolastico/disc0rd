@@ -7,7 +7,8 @@ import java.util.Vector;
 
 public class SortedProperties extends Properties {
 
-    public Enumeration keys() {
+    @SuppressWarnings("unchecked")
+    public synchronized Enumeration keys() {
         Enumeration keysEnum = super.keys();
         Vector<String> keyList = new Vector<String>();
         while (keysEnum.hasMoreElements()) {
