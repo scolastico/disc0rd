@@ -20,12 +20,12 @@ public class Settings {
 
             if (!file.exists()) {
 
-                _properties.setProperty("mysql-host", "localhost");
-                _properties.setProperty("mysql-database", "disc0rd");
-                _properties.setProperty("mysql-user", "disc0rd");
-                _properties.setProperty("mysql-password", "very-secure-password");
-                _properties.setProperty("mysql-prefix", "disc0rd_");
-                _properties.setProperty("discord-token", "token");
+                _properties.setProperty("mysql.host", "localhost");
+                _properties.setProperty("mysql.database", "disc0rd");
+                _properties.setProperty("mysql.user", "disc0rd");
+                _properties.setProperty("mysql.password", "very-secure-password");
+                _properties.setProperty("mysql.prefix", "disc0rd_");
+                _properties.setProperty("discord.token", "token");
 
                 FileOutputStream stream = new FileOutputStream(file);
 
@@ -45,11 +45,12 @@ public class Settings {
 
         } catch (Exception e) {
 
-            Sentry.getContext().addTag("error lvl", "SETTINGS-ERROR");
-            Sentry.capture(e);
             System.out.println("Settings Error:");
             e.printStackTrace();
             System.out.println("[info] Sending use statistics...");
+            Sentry.getContext().addTag("type", "SETTINGS-ERROR");
+            Sentry.capture(e);
+            Sentry.close();
             System.exit(1);
 
         }

@@ -29,10 +29,10 @@ public class Disc0rd {
             System.out.println("[ERROR] This build is corrupt!");
             return;
         }
-        System.out.println("Open Source on GitHub: https://go.scolasti.co/disc0rd_github");
+        System.out.println("Open Source on GitHub: https://github.com/scolastico/disc0rd");
         System.out.println("------------------------------------------------------------");
 
-        Sentry.init("https://eb8a6dbb31f247a1b57ab386ef1a88b7@sentry.io/1645265?async.shutdowntimeout=15000&async.gracefulshutdown=true");
+        Sentry.init("https://eb8a6dbb31f247a1b57ab386ef1a88b7@sentry.io/1645265?async.shutdowntimeout=15000&async.gracefulshutdown=true&stacktrace.app.packages=com.scolastico.disc0rd");
 
         try {
 
@@ -49,13 +49,15 @@ public class Disc0rd {
                 System.out.println("Database Error:");
                 error.printStackTrace();
                 System.out.println("[info] Sending use statistics...");
-                Sentry.getContext().addTag("error lvl", "DB-ERROR");
+                Sentry.getContext().addTag("type", "DB-ERROR");
                 Sentry.capture(error);
+                Sentry.close();
+                System.exit(1);
                 return;
 
             }
 
-            JDA jda = new JDABuilder(settings.getString("discord-token")).build();
+            JDA jda = new JDABuilder(settings.getString("discord.token")).build();
             jda.addEventListener(new MessageListener());
 
         } catch (Exception error) {
@@ -64,9 +66,12 @@ public class Disc0rd {
             System.out.println("Error:");
             error.printStackTrace();
             System.out.println("[info] Sending use statistics...");
-            Sentry.getContext().addTag("error lvl", "FATAL");
+            Sentry.getContext().addTag("type", "FATAL");
             Sentry.capture(error);
+            Sentry.close();
+            System.exit(1);
             return;
+
         }
 
     }
