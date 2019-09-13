@@ -67,6 +67,8 @@ class VersionController {
             return readFromInputStream(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("[ERROR] This build is corrupt!");
+            System.exit(1);
             return "Version information could not be retrieved";
         }
     }

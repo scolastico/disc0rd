@@ -27,6 +27,7 @@ public class Disc0rd {
             System.out.println("Versions - Code: " + VersionController.getVersionsCode());
         } catch (Exception e) {
             System.out.println("[ERROR] This build is corrupt!");
+            System.exit(1);
             return;
         }
         System.out.println("Open Source on GitHub: https://github.com/scolastico/disc0rd");
@@ -40,24 +41,9 @@ public class Disc0rd {
 
             Settings settings = Settings.getInstance();
 
-            try {
+            // DB CONNECTION
 
-
-
-            } catch (Exception error) {
-
-                System.out.println("Database Error:");
-                error.printStackTrace();
-                System.out.println("[info] Sending use statistics...");
-                Sentry.getContext().addTag("type", "DB-ERROR");
-                Sentry.capture(error);
-                Sentry.close();
-                System.exit(1);
-                return;
-
-            }
-
-            JDA jda = new JDABuilder(settings.getString("discord.token")).build();
+            JDA jda = new JDABuilder((String) settings.getObject("discord.token")).build();
             jda.addEventListener(new MessageListener());
 
         } catch (Exception error) {

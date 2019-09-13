@@ -25,6 +25,7 @@ public class Settings {
                 _properties.setProperty("mysql.user", "disc0rd");
                 _properties.setProperty("mysql.password", "very-secure-password");
                 _properties.setProperty("mysql.prefix", "disc0rd_");
+                _properties.setProperty("mysql.port", "3306");
                 _properties.setProperty("discord.token", "token");
 
                 FileOutputStream stream = new FileOutputStream(file);
@@ -33,7 +34,9 @@ public class Settings {
 
                 stream.close();
 
-                System.out.println("disc0rd.properties generated!");
+                System.out.println("Properties file \"disc0rd.properties\" generated!");
+                System.out.println("Please edit the config file!");
+                System.out.println("Shutdown...");
                 System.exit(0);
 
             }
@@ -65,17 +68,11 @@ public class Settings {
     }
 
     public String getString(String path) {
-        if (_properties.contains(path)) {
-            return _properties.getProperty(path);
-        }
-        return null;
+        return _properties.getProperty(path, null);
     }
 
     public Object getObject(String path) {
-        if (_properties.contains(path)) {
-            return _properties.get(path);
-        }
-        return null;
+        return _properties.get(path);
     }
 
 }
