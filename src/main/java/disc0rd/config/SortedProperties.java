@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
+@SuppressWarnings("unchecked")
 public class SortedProperties extends Properties {
 
     @SuppressWarnings("unchecked")

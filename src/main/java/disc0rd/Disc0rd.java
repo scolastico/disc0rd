@@ -1,6 +1,7 @@
 package disc0rd;
 
 import disc0rd.config.Settings;
+import disc0rd.database.BaseConnector;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -41,7 +42,7 @@ public class Disc0rd {
 
             Settings settings = Settings.getInstance();
 
-            // DB CONNECTION
+            BaseConnector.getInstance();
 
             JDA jda = new JDABuilder((String) settings.getObject("discord.token")).build();
             jda.addEventListener(new MessageListener());

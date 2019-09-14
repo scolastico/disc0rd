@@ -27,6 +27,7 @@ public class Settings {
                 _properties.setProperty("mysql.prefix", "disc0rd_");
                 _properties.setProperty("mysql.port", "3306");
                 _properties.setProperty("discord.token", "token");
+                _properties.setProperty("other.inviteUrl", "http://invite.disc0rd.me/");
 
                 FileOutputStream stream = new FileOutputStream(file);
 
