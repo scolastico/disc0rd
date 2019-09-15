@@ -2,10 +2,14 @@ package disc0rd;
 
 import disc0rd.config.Settings;
 import disc0rd.database.BaseConnector;
+import disc0rd.modules.Module_Sub;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import disc0rd.events.MessageListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Disc0rd {
 
@@ -46,6 +50,16 @@ public class Disc0rd {
 
             JDA jda = new JDABuilder((String) settings.getObject("discord.token")).build();
             jda.addEventListener(new MessageListener());
+            _jda = jda;
+
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    Module_Sub.runCheck(jda);
+                }
+            };
+            timer.scheduleAtFixedRate(task,0,Integer.parseInt(settings.getString("other.checkPr0Time"))*1000);
 
         } catch (Exception error) {
 

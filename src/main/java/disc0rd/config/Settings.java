@@ -28,6 +28,7 @@ public class Settings {
                 _properties.setProperty("mysql.port", "3306");
                 _properties.setProperty("discord.token", "token");
                 _properties.setProperty("other.inviteUrl", "http://invite.disc0rd.me/");
+                _properties.setProperty("other.checkPr0Time", "30");
 
                 FileOutputStream stream = new FileOutputStream(file);
 

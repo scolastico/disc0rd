@@ -109,7 +109,7 @@ public class Module_DB_Sub {
     public ArrayList<Sub> getSub(String pr0User) {
         try {
             ResultSet resultSet = BaseConnector.getInstance().getConnection().createStatement().executeQuery(
-                    "SELECT * FROM " + Settings.getInstance().getString("mysql.prefix") + "sub WHERE pr0user=`" + pr0User + "`;"
+                    "SELECT * FROM " + Settings.getInstance().getString("mysql.prefix") + "sub WHERE pr0user='" + pr0User + "';"
             );
             ArrayList<Sub> subs = new ArrayList<>();
             while (resultSet.next()) {
