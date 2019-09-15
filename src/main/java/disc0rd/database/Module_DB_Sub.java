@@ -57,6 +57,21 @@ public class Module_DB_Sub {
         return null;
     }
 
+    public ArrayList<Sub> getSub(long serverId) {
+        try {
+            ResultSet resultSet = BaseConnector.getInstance().getConnection().createStatement().executeQuery(
+                    "SELECT * FROM " + Settings.getInstance().getString("mysql.prefix") + "sub WHERE server=" + serverId
+            );
+            ArrayList<Sub> subs = new ArrayList<>();
+            while (resultSet.next()) {
+                subs.add(new Sub(resultSet.getInt("id"), resultSet.getLong("server"), resultSet.getLong("channel"), resultSet.getString("pr0user")));
+            }
+            return subs;
+        } catch (Exception e) {
+            BaseConnector.HandleSqlError(e);
+        }
+        return null;
+    }
 
     public ArrayList<Sub> getSub(long serverId, long channelId) {
         try {
@@ -119,10 +134,10 @@ public class Module_DB_Sub {
 
     public static class Sub {
 
-        private int _id;
-        private long _serverId;
-        private long _channelId;
-        private String _pr0user;
+        private int _id = 0;
+        private long _serverId = 0;
+        private long _channelId = 0;
+        private String _pr0user = "";
 
         private Sub(int id, long serverId, long channelId, String pr0user) {
             _id = id;

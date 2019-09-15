@@ -2,6 +2,8 @@ package disc0rd.events;
 
 import disc0rd.Disc0rd;
 import disc0rd.config.Settings;
+import disc0rd.database.Module_DB_Settings;
+import disc0rd.events.cmds.Module_CMD_Settings;
 import disc0rd.events.cmds.Module_CMD_Sub;
 import io.sentry.Sentry;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -63,8 +65,8 @@ public class MessageListener extends ListenerAdapter {
                         Module_CMD_Sub.runListSubs(args, event);
                     } else if (args[0].equalsIgnoreCase("listAllSubs")) {
                         Module_CMD_Sub.runListAllSubs(args, event);
-                    } else if (args[0].equalsIgnoreCase("reset")) {
-                        //RESET
+                    } else if (args[0].equalsIgnoreCase("allowAdmin")){
+                        Module_CMD_Settings.runAllowAdmin(args, event);
                     } else {
                         sendHelp(jda, event.getTextChannel());
                     }
@@ -88,8 +90,7 @@ public class MessageListener extends ListenerAdapter {
                         "`disc0rd/unsubscribe` <username> - Unsubscribe an user in this channel.\n" +
                         "`disc0rd/listSubs` - Lists the subs of this channel.\n" +
                         "`disc0rd/listAllSubs` - Lists all subs of this server.\n" +
-                        "`disc0rd/allowAdmin` <true/false> - Allow admins control this bot.\n" +
-                        "`disc0rd/reset` - Resets this Server.",
+                        "`disc0rd/allowAdmin` <true/false> - Allow admins control this bot.",
                 true
         );
         channel.sendMessage(embedBuilder.build()).queue();
