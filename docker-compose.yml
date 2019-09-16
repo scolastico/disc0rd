@@ -16,7 +16,8 @@ services:
     volumes:
       - ./docker/mysql:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: 'database'
-      MYSQL_USER: 'user'
+      MYSQL_DATABASE: 'disc0rd'
+      MYSQL_USER: 'disc0rd'
+      MYSQL_PASSWORD: 'very-secure-password'
       MYSQL_ROOT_PASSWORD: 'root'
     restart: always
