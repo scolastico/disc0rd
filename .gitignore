@@ -14,3 +14,6 @@ target/
 
 # Disc0rd
 disc0rd.properties
+
+# Docker
+docker/mysql/
