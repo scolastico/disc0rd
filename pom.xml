@@ -109,14 +109,6 @@
                     </gitDescribe>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <configuration>
-                    <mainClass>disc0rd.Disc0rd</mainClass>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
