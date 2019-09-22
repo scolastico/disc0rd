@@ -29,6 +29,8 @@ public class Settings {
                 _properties.setProperty("discord.token", "token");
                 _properties.setProperty("other.inviteUrl", "http://invite.disc0rd.me/");
                 _properties.setProperty("other.checkPr0Time", "30");
+                _properties.setProperty("pr0gramm.username", "disc0rdBot");
+                _properties.setProperty("pr0gramm.passwort", "password");
 
                 FileOutputStream stream = new FileOutputStream(file);
 
