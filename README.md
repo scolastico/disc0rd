@@ -1,4 +1,5 @@
 # Disc0rd - Community Bot
+### [outdated and unsuportet! new version is on the way but unfortunately closed source]
 ![my badge](https://github.com/scolastico/disc0rd/workflows/Java%20CI/badge.svg)
 
 ## Usage
